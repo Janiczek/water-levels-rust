@@ -21,9 +21,10 @@ struct Output {
 #[post("/rain", format = "json", data = "<input>")]
 fn post_rain(input: Json<Input>) -> JsonValue {
     let result = rain(&input.0.landscape, input.0.hours);
-    json!(Output { result: result })
+    json!(Output { result })
 }
 
+#[allow(clippy::float_cmp)]
 fn main() {
     assert_eq!(rain(&[3, 1, 6, 4, 5, 6], 1), [3.5,3.5,6.,6.,6.,6.]);
     assert_eq!(rain(&[3, 1, 6, 4, 8, 9], 1), [4.,4.,6.,6.,8.,9.]);
