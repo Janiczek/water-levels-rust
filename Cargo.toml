@@ -8,3 +8,6 @@ edition = "2018"
 
 [dependencies]
 static_assertions = "1.1.0"
+rocket = "0.4.7"
+rocket_contrib = "0.4.7"
+serde = { version = "1.0.124", features = ["derive"] }
