@@ -5,9 +5,9 @@ use std::collections::VecDeque;
 use std::f64::INFINITY;
 use math::round;
 
-const ITER_PRECISION: i8 = 5;
+const ITER_PRECISION: i8 = 6;
 const OUTPUT_PRECISION: i8 = 4;
-const_assert!(OUTPUT_PRECISION < ITER_PRECISION);
+const_assert!(OUTPUT_PRECISION < ITER_PRECISION - 1);
 
 #[allow(clippy::float_cmp)]
 fn are_same(a: &[f64], b: &[f64]) -> bool {
