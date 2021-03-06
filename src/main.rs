@@ -18,7 +18,7 @@ struct Input {
 
 #[derive(Serialize)]
 struct Output {
-    result: Vec<f32>,
+    result: Vec<f64>,
 }
 
 #[post("/rain", format = "json", data = "<input>")]
