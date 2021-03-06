@@ -3,9 +3,12 @@
 extern crate rocket;
 
 use water_levels::rain;
+use std::env;
 use rocket_contrib::json;
 use rocket_contrib::json::{Json, JsonValue};
 use serde::{Deserialize, Serialize};
+use rocket::Config;
+use rocket::config::Environment;
 
 #[derive(Deserialize)]
 struct Input {
@@ -35,7 +38,16 @@ fn main() {
     assert_eq!(rain(&[8, 1, 8, 8, 1], 1), [8., 4., 8., 8., 3.]);
     assert_eq!(rain(&[1, 2, 3, 4, 5, 6, 7, 8, 9], 1), [4.75, 4.75, 4.75, 4.75, 5., 6., 7., 8., 9.]);
 
-    rocket::ignite()
+    let port: u16 = env::var("PORT")
+        .map(|str| str.parse::<u16>().unwrap())
+        .unwrap_or(8000);
+
+    let config = Config::build(Environment::Staging)
+        .port(port)
+        .finalize()
+        .unwrap();
+
+    rocket::custom(config)
         .mount("/", routes![post_rain])
         .launch();
 }
